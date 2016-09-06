@@ -1,0 +1,26 @@
+{{#each row as |category|}}
+    <li class="list-group-item">
+        <span class="tag tag-danger tag-pill pull-xs-right">
+            {{category.sumMoney}}
+        </span>
+
+        <div class="divider-vertical pull-sm-right"></div>
+        <div class="btn-group pull-sm-right" role="group">
+          {{#link-to "categories.addMoney" category.id tagName="button" class="btn btn-outline-info
+          btn-sm"}}Add Money{{/link-to}}
+          {{#link-to "categories.addSubcategory" category.id tagName="button" class="btn btn-outline-success
+                  btn-sm"}}Add Sub{{/link-to}}
+            <button type="button" class="btn btn-outline-danger btn-sm" {{action 'deleteCategory' category}}>Delete</button>
+        </div>
+        <span data-toggle="collapse" data-target="#{{category
+        .id}}">{{category.name}}
+        </span>
+    </li>
+    {{#if category.children}}
+        <div class="collapse" id="{{category.id}}">
+            <div class="card">
+              {{rec-row row=category.children deleteCategory='deleteCategory'}}
+            </div>
+        </div>
+    {{/if}}
+{{/each}}

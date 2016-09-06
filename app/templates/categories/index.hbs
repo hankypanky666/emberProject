@@ -1,0 +1,22 @@
+<hr>
+{{#link-to "categories.add" this class="btn btn-primary"}}Add Category{{/link-to}}
+<hr>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th></th>
+    </tr>
+    <tbody>
+      {{#each model as |category|}}
+            <tr>
+                <td><{{category.name}}</td>
+                <td><button class="btn btn-outline-danger btn-sm" {{action 'deleteCategory' category}}>Delete</button>
+                  {{#link-to "categories.add" category.id class="btn btn-outline-success btn-sm"}}Add
+                      Category{{/link-to}}
+                </td>
+            </tr>
+      {{/each}}
+    </tbody>
+</table>
+{{outlet}}
