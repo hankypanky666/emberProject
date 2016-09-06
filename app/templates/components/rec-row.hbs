@@ -1,26 +1,58 @@
 {{#each row as |category|}}
     <li class="list-group-item">
-        <span class="tag tag-danger tag-pill pull-xs-right">
-            {{category.sumMoney}}
-        </span>
+        <div class="row">
 
-        <div class="divider-vertical pull-sm-right"></div>
-        <div class="btn-group pull-sm-right" role="group">
-          {{#link-to "categories.addMoney" category.id tagName="button" class="btn btn-outline-info
-          btn-sm"}}Add Money{{/link-to}}
-          {{#link-to "categories.addSubcategory" category.id tagName="button" class="btn btn-outline-success
-                  btn-sm"}}Add Sub{{/link-to}}
-            <button type="button" class="btn btn-outline-danger btn-sm" {{action 'deleteCategory' category}}>Delete</button>
+            <div class="col-sm-2">
+              {{#if children}}
+              {{else}}
+                  Total: {{category.amount}}
+              {{/if}}
+            </div>
+
+            <div class="col-sm-3">
+                <span data-toggle="collapse" data-target="#{{category.id}}">{{category.name}}</span>
+            </div>
+
+            <div class="col-sm-7">
+              <span class="tag tag-danger tag-pill pull-xs-right">
+                {{category.selfExpensesAmountsSum}}
+              </span>
+
+                <div class="divider-vertical pull-sm-right"></div>
+
+                <div class="btn-group pull-sm-right" role="group">
+                  {{#if children}}
+                    {{#link-to "categories.addMoney" category.id tagName="button" class="btn btn-outline-info
+              btn-sm"}}Add Money{{/link-to}}
+                    {{#link-to "categories.update" category.id tagName="button" class="btn btn-outline-primary
+                      btn-sm"}}Update{{/link-to}}
+                      <button type="button" class="btn btn-outline-danger btn-sm" {{action 'deleteCategory' category}}>
+                          Delete
+                      </button>
+                  {{else}}
+                    {{#link-to "categories.addMoney" category.id tagName="button" class="btn btn-outline-info
+              btn-sm"}}Add Money{{/link-to}}
+                    {{#link-to "categories.addSubcategory" category.id tagName="button" class="btn btn-outline-success
+                      btn-sm"}}Add Sub{{/link-to}}
+                    {{#link-to "categories.update" category.id tagName="button" class="btn btn-outline-primary
+                      btn-sm"}}Update{{/link-to}}
+                      <button type="button" class="btn btn-outline-danger btn-sm" {{action 'deleteCategory' category}}>
+                          Delete
+                      </button>
+                  {{/if}}
+                </div>
+            </div>
         </div>
-        <span data-toggle="collapse" data-target="#{{category
-        .id}}">{{category.name}}
-        </span>
+
+
     </li>
+
     {{#if category.children}}
         <div class="collapse" id="{{category.id}}">
             <div class="card">
-              {{rec-row row=category.children deleteCategory='deleteCategory'}}
+              {{rec-row row=category.children children=true deleteCategory='deleteCategory'}}
             </div>
         </div>
     {{/if}}
+
 {{/each}}
