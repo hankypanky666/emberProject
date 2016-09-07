@@ -1,0 +1,54 @@
+<ul class="list-group expenses list-group-flush collapse" id="{{category.id}}">
+    <li class="list-group-item">
+        <div class="btn-group btn-group-justified" role="group">
+          {{#link-to "categories.addMoney" category.id tagName="button" role="button" class="btn btn-outline-secondary
+              btn-sm"}} {{fa-icon "money"}} {{/link-to}}
+
+          {{#if category.parent}}
+          {{else}}
+            {{#link-to "categories.addSubcategory" category.id tagName="button" role="button" class="btn btn-outline-secondary
+                      btn-sm"}} {{fa-icon "plus"}} {{/link-to}}
+          {{/if}}
+
+          {{#link-to "categories.update" category.id tagName="button" role="button" class="btn btn-outline-secondary
+                      btn-sm"}} {{fa-icon "pencil"}} {{/link-to}}
+            <button type="button" class="btn btn-outline-danger btn-sm" role="button" {{action 'deleteCategory' category}}>
+                {{fa-icon "trash"}}
+            </button>
+        </div>
+    </li>
+  {{#each category.expenses as |expense|}}
+    {{#if expense.isEditing}}
+        <form {{action 'saveExpense' expense on='submit'}} class="form-inline">
+            <div class="input-group">
+              {{input value=expense.money type="number" class='form-control'}}
+              {{input value=expense.description type="text" class='form-control'}}
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-outline-success btn-circle btn-block">{{fa-icon "check"}}</button>
+                    <button class="btn btn-outline-danger btn-circle btn-block" {{action 'cancelExpenseEdit'
+                                                                                  expense}}>{{fa-icon
+                      "ban"}}</button>
+                </div>
+            </div>
+        </form>
+    {{else}}
+        <li class="list-group-item">
+          {{expense.money}}
+          {{expense.description}}
+            <div class="pull-right">
+                <button type="button" class="btn btn-outline-info btn-sm btn-circle" role="button" {{action
+                  'expenseEdit'
+                  expense}}>
+                  {{fa-icon "pencil"}}
+                </button>
+                <button type="button" class="btn btn-outline-danger btn-sm btn-circle" role="button" {{action
+                  'deleteExpense'
+                  expense}}>
+                  {{fa-icon "trash"}}
+                </button>
+            </div>
+        </li>
+    {{/if}}
+
+  {{/each}}
+</ul>
