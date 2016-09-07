@@ -3,12 +3,22 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
   model() {
-    return this.store.findAll('category').then((result) => {
-      return result.filter(function (item) {
-        return item.get('parent').content === null; // О_о
-      });
+
+    return Ember.RSVP.hash({
+      category: this.store.findAll('category').then((result) => {
+        return result.filter(function (item) {
+          return item.get('parent').content === null; // О_о
+        });
+      })
     });
+
   },
+
+  setupController(controller, model) {
+    const category = model.category;
+    this._super(controller, category);
+  },
+
 
   actions: {
     deleteCategory(category) {
@@ -22,7 +32,21 @@ export default Ember.Route.extend({
         });
       });
 
+    },
+
+    deleteExpense(expense) {
+      expense.destroyRecord();
+    },
+
+    expenseEdit(expense) {
+      expense.set('isEditing', true);
+    },
+
+    saveExpense(expense, category) {
+      expense.set('isEditing', false);
+      expense.save();
     }
+
   },
 
   _recurssiveDeleteCategories(categories) {
@@ -32,13 +56,13 @@ export default Ember.Route.extend({
       //   this._recurssiveDeleteCategories(child.get('children'));
       // }
 
-      if (child.get('expenses')) {
-        child.get('expenses').map((item) => {
-          return item.destroyRecord();
-        });
-      }
-
-      return child.destroyRecord();
+      return child.destroyRecord().then(() => {
+        if (child.get('expenses')) {
+          child.get('expenses').map((item) => {
+            return item.destroyRecord();
+          });
+        }
+      });
     });
   }
 

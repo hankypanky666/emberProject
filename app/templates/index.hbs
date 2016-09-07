@@ -1,8 +1,12 @@
-<hr>
-{{#link-to "categories.add" class="btn btn-primary"}}Add Category{{/link-to}}
-<hr>
+    <hr>
+  {{#link-to "categories.add" class="btn btn-primary"}}Add Category{{/link-to}}
+    <hr>
 
-{{rec-row row=model deleteCategory='deleteCategory'}}
+    <div class="card-columns">
+  {{rec-row row=model deleteCategory='deleteCategory' deleteExpense='deleteExpense' expenseEdit='expenseEdit'
+  saveExpense='saveExpense'}}
+        </div>
+
 
 
 

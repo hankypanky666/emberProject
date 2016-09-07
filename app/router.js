@@ -11,7 +11,7 @@ Router.map(function() {
     this.route('add');
     this.route('addSubcategory', { path: '/:category_id' });
     this.route('addMoney', { path: '/:id' });
-    this.route('update', { path: '/:update'} );
+    this.route('update', { path: '/:cat_id'} );
   });
 });
 
