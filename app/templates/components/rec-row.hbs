@@ -1,19 +1,28 @@
 {{#each row as |category|}}
-    {{#if category.hasDirtyAttributes}}
+    {{#if category.isNew}}
     {{else}}
         <div class="card card-outline-success">
-            <div class="card-header">
-                <h5 class="card-title" data-toggle="collapse" data-target="#{{category.id}}">{{fa-icon "folder"}} {{category
-                .name}}<span
-                        class="tag
-            tag-danger tag-pill pull-xs-right">
-                  {{category.selfExpensesAmountsSum}}
-                </span></h5>
+            <div class="card-header" {{action 'headerClick' category}} data-toggle="collapse" data-target="#{{category
+            .id}}">
+                <h5 class="card-title">
+
+                    {{#if category.headerClicked}}
+                      {{fa-icon "folder-open"}}
+                      {{else}}
+                      {{fa-icon "folder"}}
+                    {{/if}}
+
+
+                  {{category.name}}
+                    <span class="tag tag-danger tag-pill pull-xs-right">
+                      {{category.selfExpensesAmountsSum}}
+                    </span>
+                </h5>
             </div>
 
             <!-- expenses -->
           {{list-expenses category=category deleteCategory='deleteCategory' deleteExpense='deleteExpense' expenseEdit='expenseEdit'
-                          saveExpense='saveExpense'}}
+                          saveExpense='saveExpense' cancelExpenseEdit='cancelExpenseEdit'}}
             <!-- expenses end-->
 
             <!-- subCategories -->

@@ -4,6 +4,11 @@ export default Ember.Component.extend({
 
   actions: {
 
+    headerClick(category) {
+      let clicked = category.get('headerClicked');
+      category.set('headerClicked', !clicked);
+    },
+
     deleteCategory(category) {
       this.sendAction('deleteCategory', category);
     },

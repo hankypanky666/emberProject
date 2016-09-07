@@ -23,7 +23,6 @@ export default Ember.Route.extend({
     this._super(controller, category);
 
     controller.set('save', saveCategory);
-
   },
 
   actions: {
@@ -50,8 +49,14 @@ export default Ember.Route.extend({
     saveCategory(newCategory) {
       newCategory.save().then(() => {
         this.controller.get('save').set('addClicked', false);
+        this.refresh();                                       // SOS this is NORMALLY?
       });
     },
+
+    willTransition() {
+      this.controller.get('save').rollbackAttributes();
+    },
+
 
     // Expenses actions
     deleteExpense(expense) {
