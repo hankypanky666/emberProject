@@ -9,18 +9,26 @@ export default Ember.Route.extend({
         return result.filter(function (item) {
           return item.get('parent').content === null; // О_о
         });
-      })
-    });
+      }),
+
+      save: this.store.createRecord('category')
+  });
 
   },
 
   setupController(controller, model) {
     const category = model.category;
+    const saveCategory = model.save;
+
     this._super(controller, category);
+
+    controller.set('save', saveCategory);
+
   },
 
-
   actions: {
+
+    // Main actions
     deleteCategory(category) {
       let child_deletions = this._recurssiveDeleteCategories(category.get('children'));
       let expenses_deletions = this._recurssiveDeleteCategories(category.get('expenses'));
@@ -34,6 +42,18 @@ export default Ember.Route.extend({
 
     },
 
+    // Categories actions
+    createMainCategory(category) {
+      category.set('addClicked', true);
+    },
+
+    saveCategory(newCategory) {
+      newCategory.save().then(() => {
+        this.controller.get('save').set('addClicked', false);
+      });
+    },
+
+    // Expenses actions
     deleteExpense(expense) {
       expense.destroyRecord();
     },
@@ -42,10 +62,15 @@ export default Ember.Route.extend({
       expense.set('isEditing', true);
     },
 
-    saveExpense(expense, category) {
+    saveExpense(expense) {
       expense.set('isEditing', false);
       expense.save();
-    }
+    },
+
+    cancelExpenseEdit(expense) {
+      expense.set('isEditing', false);
+      expense.rollbackAttributes();
+    },
 
   },
 

@@ -18,6 +18,10 @@ export default Ember.Component.extend({
 
     saveExpense(expense, category) {
       this.sendAction('saveExpense', expense, category);
+    },
+
+    cancelExpenseEdit(expense) {
+      this.sendAction('cancelExpenseEdit', expense);
     }
 
   }

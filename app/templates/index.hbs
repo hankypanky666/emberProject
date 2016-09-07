@@ -1,11 +1,27 @@
     <hr>
-  {{#link-to "categories.add" class="btn btn-primary"}}Add Category{{/link-to}}
+
+    {{#if save.addClicked}}
+    <form class="form-inline">
+        <div class="form-group">
+          {{input type="text" value=save.name class="form-control" id="category" placeholder="Category
+          name"}}
+        </div>
+        <button type="submit" class="btn btn-outline-success" disabled={{model.isValid}} {{action 'saveCategory'
+                                                                                                  save
+                                                                                                  }}>Save
+            category
+        </button>
+    </form>
+      {{else}}
+        <button class="btn btn-primary" {{action 'createMainCategory' save}}>Add Category</button>
+    {{/if}}
+
     <hr>
 
     <div class="card-columns">
   {{rec-row row=model deleteCategory='deleteCategory' deleteExpense='deleteExpense' expenseEdit='expenseEdit'
-  saveExpense='saveExpense'}}
-        </div>
+  saveExpense='saveExpense' cancelExpenseEdit='cancelExpenseEdit'}}
+    </div>
 
 
 

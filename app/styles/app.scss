@@ -10,10 +10,13 @@
 
 .card .card-title {
   margin-bottom: 0 !important;
-  color: #fff;
 }
 
-.card .card-title:hover {
+.card .btn {
+  border: none;
+}
+
+.card .card-title:hover,.card li:hover {
   cursor: pointer;
 }
 
@@ -21,13 +24,21 @@
   color: #fff;
 }
 
+.card .btn-block + .btn-block {
+  margin: 0;
+}
+
+.card .expenses li:not(:first-child) {
+  padding: 0.25rem 0.75rem;
+  background-color: #fafafa;
+}
+
 .card .expenses li:first-child {
   padding: 0;
 }
 
 .card .expenses {
-  border-top: 5px solid;
-  border-bottom: 5px solid;
+  border-bottom: 3px solid #5cb85c;
 }
 
 .btn-group-justified {
@@ -49,30 +60,13 @@
   border-radius: 0 !important;
 }
 
-
-
 .btn-circle {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   text-align: center;
-  padding: 6px 0;
+  padding: 0;
   font-size: 12px;
   line-height: 1.428571429;
   border-radius: 15px !important;
 }
-.btn-circle.btn-lg {
-  width: 50px;
-  height: 50px;
-  padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.33;
-  border-radius: 25px;
-}
-.btn-circle.btn-xl {
-  width: 70px;
-  height: 70px;
-  padding: 10px 16px;
-  font-size: 24px;
-  line-height: 1.33;
-  border-radius: 35px;
-}
+
