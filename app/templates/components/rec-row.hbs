@@ -24,7 +24,8 @@
                           deleteExpense='deleteExpense' saveCategory='saveCategory'
                           isClickedAddMoney='isClickedAddMoney' cancelAddMoney='cancelAddMoney' saveMoney='saveMoney'
                           expenseEdit='expenseEdit'
-                          saveExpense='saveExpense' cancelExpenseEdit='cancelExpenseEdit' isClickedSubCategory='isClickedSubCategory'}}
+                          saveExpense='saveExpense' isClickedUpdate='isClickedUpdate' cancelExpenseEdit='cancelExpenseEdit'
+                          isClickedSubCategory='isClickedSubCategory'}}
             <!-- expenses end-->
 
             <!-- subCategories -->
@@ -36,8 +37,10 @@
                         {{category.subCategoriesAmountsSum}}
                       </span>
                   </li>
-                {{list-expenses category=child deleteCategory='deleteCategory' deleteExpense='deleteExpense' expenseEdit='expenseEdit'
-                                saveExpense='saveExpense' cancelExpenseEdit='cancelExpenseEdit' isClickedAddMoney='isClickedAddMoney' cancelAddMoney='cancelAddMoney' saveMoney='saveMoney'}}
+                {{list-expenses category=child deleteCategory='deleteCategory' discardSaveCategory='discardSaveCategory' deleteExpense='deleteExpense'
+                                expenseEdit='expenseEdit'
+                                saveExpense='saveExpense' cancelExpenseEdit='cancelExpenseEdit' isClickedAddMoney='isClickedAddMoney' cancelAddMoney='cancelAddMoney' saveCategory='saveCategory' isClickedUpdate='isClickedUpdate'
+                                saveMoney='saveMoney'}}
               {{/each}}
             </ul>
             <!-- subCategories end-->

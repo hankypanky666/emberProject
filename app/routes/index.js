@@ -49,6 +49,7 @@ export default Ember.Route.extend({
     },
 
     saveCategory(newCategory, parentCategory) {
+      newCategory.set('isClickUpdate', false);
       if (parentCategory) {
         newCategory.set('addSubClicked', false);
         parentCategory.get('children').pushObject(newCategory);
@@ -74,14 +75,21 @@ export default Ember.Route.extend({
         this.controller.get('save').set('name', null);
       }
 
-      category.set('name', null);
-      category.set('addSubClicked', false);
+      if(category.get('isNew')){
+        category.set('name', null);
+        category.set('addSubClicked', false);
+      }
+      category.set('isClickUpdate', false);
       //category.rollbackAttributes();
     },
 
     isClickedSubCategory(category) {
       category.set('saveSub', this.store.createRecord('category'));
       category.get('saveSub').set('addSubClicked', true);
+    },
+
+    isClickedUpdate(category) {
+      category.set('isClickUpdate', true);
     },
 
     // Money actions

@@ -46,6 +46,10 @@ export default Ember.Component.extend({
 
     saveMoney(category, money) {
       this.sendAction('saveMoney', category, money);
+    },
+
+    isClickedUpdate(category) {
+      this.sendAction('isClickedUpdate', category);
     }
 
   }
