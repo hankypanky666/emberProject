@@ -49,7 +49,6 @@ export default Ember.Route.extend({
     },
 
     saveCategory(newCategory, parentCategory) {
-
       if (parentCategory) {
         newCategory.set('addSubClicked', false);
         parentCategory.get('children').pushObject(newCategory);
@@ -75,7 +74,7 @@ export default Ember.Route.extend({
         this.controller.get('save').set('name', null);
       }
 
-      category.rollbackAttributes();
+      category.set('name', null);
       category.set('addSubClicked', false);
       //category.rollbackAttributes();
     },
@@ -85,6 +84,24 @@ export default Ember.Route.extend({
       category.get('saveSub').set('addSubClicked', true);
     },
 
+    // Money actions
+    isClickedAddMoney(category) {
+      category.set('saveMoney', this.store.createRecord('expense'));
+      category.get('saveMoney').set('addMoneyClicked', true);
+    },
+
+    cancelAddMoney(category) {
+      category.get('saveMoney').set('addMoneyClicked', false);
+    },
+
+    saveMoney(category, money) {
+      category.get('expenses').pushObject(money);
+
+      money.save().then(() => {
+        category.save();
+        category.get('saveMoney').set('addMoneyClicked', false);
+      });
+    },
 
     // Expenses actions
     deleteExpense(expense) {

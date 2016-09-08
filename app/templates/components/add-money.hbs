@@ -1,0 +1,14 @@
+<form class="form-inline">
+    <div class="input-group">
+      {{input type="number" value=money.money class="form-control" min="1" placeholder="20"}}
+      {{input type="text" value=money.description class="form-control" placeholder="description"}}
+        <div class="input-group-btn">
+            <button type="submit" class="btn btn-outline-success btn-circle btn-block" {{action 'saveMoney'
+                                                                                                category money}}>{{fa-icon
+              "floppy-o"}}</button>
+            <button class="btn btn-outline-danger btn-circle btn-block" {{action 'cancelAddMoney'
+                                                                                 category money}}>{{fa-icon
+              "ban"}}</button>
+            </div>
+    </div>
+</form>

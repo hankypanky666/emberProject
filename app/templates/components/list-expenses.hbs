@@ -1,8 +1,8 @@
 <ul class="list-group expenses list-group-flush collapse" id="{{category.id}}">
     <li class="list-group-item">
         <div class="btn-group btn-group-justified" role="group">
-          {{#link-to "categories.addMoney" category.id tagName="button" role="button" class="btn btn-outline-secondary
-              btn-sm"}} {{fa-icon "money"}} {{/link-to}}
+            <button class="btn btn-outline-secondary btn-sm" {{action 'isClickedAddMoney' category}}>{{fa-icon
+              "money"}}</button>
 
           {{#if category.parent}}
           {{else}}
@@ -24,6 +24,12 @@
       discardSaveCategory='discardSaveCategory' saveCategory='saveCategory'
       btn='btn-sm'}}
   </li>
+  {{/if}}
+
+  {{#if category.saveMoney.addMoneyClicked}}
+      <li class="list-group-item" style="padding: 0">
+        {{add-money category=category money=category.saveMoney cancelAddMoney='cancelAddMoney' saveMoney='saveMoney'}}
+      </li>
   {{/if}}
 
   {{#each category.expenses as |expense|}}

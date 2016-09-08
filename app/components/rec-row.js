@@ -39,6 +39,18 @@ export default Ember.Component.extend({
 
     saveCategory(category, parentCategory) {
       this.sendAction('saveCategory', category, parentCategory);
+    },
+
+    isClickedAddMoney(category) {
+      this.sendAction('isClickedAddMoney', category);
+    },
+
+    cancelAddMoney(category) {
+      this.sendAction('cancelAddMoney', category);
+    },
+
+    saveMoney(category, money) {
+      this.sendAction('saveMoney', category, money);
     }
 
   }
