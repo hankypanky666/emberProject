@@ -27,6 +27,18 @@ export default Ember.Component.extend({
 
     cancelExpenseEdit(expense) {
       this.sendAction('cancelExpenseEdit', expense);
+    },
+
+    isClickedSubCategory(category) {
+      this.sendAction('isClickedSubCategory', category);
+    },
+
+    discardSaveCategory(category, mainCategory) {
+      this.sendAction('discardSaveCategory', category, mainCategory);
+    },
+
+    saveCategory(category, parentCategory) {
+      this.sendAction('saveCategory', category, parentCategory);
     }
 
   }

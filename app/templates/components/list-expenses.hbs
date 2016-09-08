@@ -6,8 +6,8 @@
 
           {{#if category.parent}}
           {{else}}
-            {{#link-to "categories.addSubcategory" category.id tagName="button" role="button" class="btn btn-outline-secondary
-                      btn-sm"}} {{fa-icon "plus"}} {{/link-to}}
+            <button class="btn btn-outline-secondary btn-sm" {{action 'isClickedSubCategory' category}}>{{fa-icon
+              "plus"}}</button>
           {{/if}}
 
           {{#link-to "categories.update" category.id tagName="button" role="button" class="btn btn-outline-secondary
@@ -17,6 +17,15 @@
             </button>
         </div>
     </li>
+
+  {{#if category.saveSub.addSubClicked}}
+  <li class="list-group-item" style="padding: 0">
+      {{category-create-form save=category.saveSub category=category mainCategory=false
+      discardSaveCategory='discardSaveCategory' saveCategory='saveCategory'
+      btn='btn-sm'}}
+  </li>
+  {{/if}}
+
   {{#each category.expenses as |expense|}}
     {{#if expense.isEditing}}
         <form {{action 'saveExpense' expense on='submit'}} class="form-inline">
@@ -33,20 +42,23 @@
         </form>
     {{else}}
         <li class="list-group-item">
-          {{expense.money}}
-          {{expense.description}}
-            <div class="pull-right">
-                <button type="button" class="btn btn-outline-info btn-sm btn-circle" role="button" {{action
+            <dl>
+                <dt>{{expense.money}}
+                    <button type="button" class="btn btn-outline-info btn-sm btn-circle pull-right"
+                                              role="button" {{action
                   'expenseEdit'
                   expense}}>
                   {{fa-icon "pencil"}}
                 </button>
-                <button type="button" class="btn btn-outline-danger btn-sm btn-circle" role="button" {{action
+                </dt>
+                <dd>{{expense.description}} <button type="button" class="btn btn-outline-danger btn-sm btn-circle pull-right"
+                                                    role="button" {{action
                   'deleteExpense'
                   expense}}>
                   {{fa-icon "trash"}}
                 </button>
-            </div>
+                </dd>
+            </dl>
         </li>
     {{/if}}
 

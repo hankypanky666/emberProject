@@ -1,17 +1,8 @@
     <hr>
 
     {{#if save.addClicked}}
-    <form class="form-inline">
-        <div class="form-group">
-          {{input type="text" value=save.name class="form-control" id="category" placeholder="Category
-          name"}}
-        </div>
-        <button type="submit" class="btn btn-outline-success" disabled={{model.isValid}} {{action 'saveCategory'
-                                                                                                  save
-                                                                                                  }}>Save
-            category
-        </button>
-    </form>
+      {{category-create-form save=save mainCategory=true saveCategory='saveCategory'
+      discardSaveCategory='discardSaveCategory'}}
       {{else}}
         <button class="btn btn-primary" {{action 'createMainCategory' save}}>Add Category</button>
     {{/if}}
@@ -19,8 +10,9 @@
     <hr>
 
     <div class="card-columns">
-  {{rec-row row=model deleteCategory='deleteCategory' deleteExpense='deleteExpense' expenseEdit='expenseEdit'
-  saveExpense='saveExpense' cancelExpenseEdit='cancelExpenseEdit'}}
+  {{rec-row row=model saveSub=saveSub discardSaveCategory='discardSaveCategory' deleteCategory='deleteCategory' deleteExpense='deleteExpense'
+            expenseEdit='expenseEdit' saveCategory='saveCategory'
+  saveExpense='saveExpense' cancelExpenseEdit='cancelExpenseEdit' isClickedSubCategory='isClickedSubCategory'}}
     </div>
 
 

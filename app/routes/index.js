@@ -11,14 +11,16 @@ export default Ember.Route.extend({
         });
       }),
 
-      save: this.store.createRecord('category')
-  });
+      save: this.store.createRecord('category'),
+      //saveSub: this.store.createRecord('category')
+    });
 
   },
 
   setupController(controller, model) {
     const category = model.category;
     const saveCategory = model.save;
+    //const saveSubCategory = model.saveSub;
 
     this._super(controller, category);
 
@@ -46,15 +48,41 @@ export default Ember.Route.extend({
       category.set('addClicked', true);
     },
 
-    saveCategory(newCategory) {
-      newCategory.save().then(() => {
-        this.controller.get('save').set('addClicked', false);
-        this.refresh();                                       // SOS this is NORMALLY?
-      });
+    saveCategory(newCategory, parentCategory) {
+
+      if (parentCategory) {
+        newCategory.set('addSubClicked', false);
+        parentCategory.get('children').pushObject(newCategory);
+
+        newCategory.save().then(() => {
+          parentCategory.save();
+        });
+      } else {
+        newCategory.save().then(() => {
+          this.controller.get('save').set('addClicked', false);
+          this.refresh();                                       // SOS this is NORMALLY?
+        });
+      }
     },
 
     willTransition() {
       this.controller.get('save').rollbackAttributes();
+    },
+
+    discardSaveCategory(category, mainCategory) {
+      if (mainCategory) {
+        this.controller.get('save').set('addClicked', false);
+        this.controller.get('save').set('name', null);
+      }
+
+      category.rollbackAttributes();
+      category.set('addSubClicked', false);
+      //category.rollbackAttributes();
+    },
+
+    isClickedSubCategory(category) {
+      category.set('saveSub', this.store.createRecord('category'));
+      category.get('saveSub').set('addSubClicked', true);
     },
 
 

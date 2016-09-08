@@ -12,7 +12,6 @@
                       {{fa-icon "folder"}}
                     {{/if}}
 
-
                   {{category.name}}
                     <span class="tag tag-danger tag-pill pull-xs-right">
                       {{category.selfExpensesAmountsSum}}
@@ -21,14 +20,16 @@
             </div>
 
             <!-- expenses -->
-          {{list-expenses category=category deleteCategory='deleteCategory' deleteExpense='deleteExpense' expenseEdit='expenseEdit'
-                          saveExpense='saveExpense' cancelExpenseEdit='cancelExpenseEdit'}}
+          {{list-expenses category=category saveSub=saveSub discardSaveCategory='discardSaveCategory' deleteCategory='deleteCategory'
+                          deleteExpense='deleteExpense' saveCategory='saveCategory'
+                          expenseEdit='expenseEdit'
+                          saveExpense='saveExpense' cancelExpenseEdit='cancelExpenseEdit' isClickedSubCategory='isClickedSubCategory'}}
             <!-- expenses end-->
 
             <!-- subCategories -->
             <ul class="list-group list-group-flush">
               {{#each category.children as |child|}}
-                  <li class="list-group-item" data-toggle="collapse" data-target="#{{child.id}}">
+                  <li class="list-group-item parent" data-toggle="collapse" data-target="#{{child.id}}">
                     {{child.name}}
                       <span class="tag tag-danger tag-pill pull-xs-right">
                         {{category.subCategoriesAmountsSum}}
