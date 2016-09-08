@@ -6,5 +6,5 @@ export default DS.Model.extend({
   money: DS.attr('number'),
   description: DS.attr('string'),
 
-  isValid: Ember.computed.notEmpty('money')
+  isValid: Ember.computed.empty('money')
 });
