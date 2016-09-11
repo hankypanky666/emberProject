@@ -64,10 +64,15 @@
                   {{fa-icon "pencil"}}
                 </button>
                 </dt>
-                <dd>{{expense.description}} <button type="button" class="btn btn-outline-danger btn-sm btn-circle pull-right"
-                                                    role="button" {{action
-                  'deleteExpense'
-                  expense}}>
+                <dd>
+                    {{#if expense.description}}
+                      {{expense.description}}
+                    {{else}}
+                      <small>without description</small>
+                    {{/if}}
+
+                    <button type="button" class="btn btn-outline-danger btn-sm btn-circle pull-right" role="button"
+                      {{action 'deleteExpense' expense}}>
                   {{fa-icon "trash"}}
                 </button>
                 </dd>

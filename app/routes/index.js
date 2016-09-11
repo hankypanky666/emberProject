@@ -1,30 +1,71 @@
 import Ember from 'ember';
+import moment from 'moment';
 
 export default Ember.Route.extend({
 
-  model() {
+  queryParams: {
+    date: {refreshModel: true}
+  },
 
+  model(params) {
+    //console.log(params);
+    if (params.date) {
+      return Ember.RSVP.hash({
+        category: this.store.findAll('category', { reload: true }).then((result) => {
+          return result.map((item) => {
+            return item;
+          });
+        }).then((response) => {
+          return response.filter((item) => {
+            item.get('expenses').then(f => {
+              return f.filter(item => {
+                let start = moment(params.date);
+                let end = moment(moment().format('YYYY-MM-DD'));
+                let range = moment.range(start, end);
+
+                //console.log('start:', start);
+                //console.log('end:', end);
+                //console.log('date:', moment(item.get('createdAt')));
+                //console.log(range.contains(moment(item.get('createdAt'))));
+                return range.contains(moment(item.get('createdAt')));
+              });
+            }).then((res) => {
+              item.set('expenses', res);
+            });
+            return item.get('parent').content === null;
+          });
+        }),
+        save: this.store.createRecord('category'),
+      });
+    }
     return Ember.RSVP.hash({
       category: this.store.findAll('category').then((result) => {
+
         return result.filter(function (item) {
-          return item.get('parent').content === null; // О_о
+          //item.set('expenses', q);
+          return item.get('parent').content === null;
         });
       }),
 
       save: this.store.createRecord('category'),
-      //saveSub: this.store.createRecord('category')
     });
-
   },
 
   setupController(controller, model) {
     const category = model.category;
     const saveCategory = model.save;
+    const today = moment();
+
     //const saveSubCategory = model.saveSub;
 
     this._super(controller, category);
 
     controller.set('save', saveCategory);
+
+    // filter params
+    controller.set('day', today.format('YYYY-MM-DD'));
+    controller.set('weekly', today.subtract(7, "days").format('YYYY-MM-DD'));
+    controller.set('month', today.subtract(30, "days").format('YYYY-MM-DD'));
   },
 
   actions: {
@@ -75,7 +116,7 @@ export default Ember.Route.extend({
         this.controller.get('save').set('name', null);
       }
 
-      if(category.get('isNew')){
+      if (category.get('isNew')) {
         category.set('name', null);
         category.set('addSubClicked', false);
       }
@@ -103,6 +144,7 @@ export default Ember.Route.extend({
     },
 
     saveMoney(category, money) {
+      money.set('createdAt', moment().format('YYYY-MM-DD'));
       category.get('expenses').pushObject(money);
 
       money.save().then(() => {

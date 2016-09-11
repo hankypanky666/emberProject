@@ -9,6 +9,11 @@
 
     <hr>
 
+    {{#link-to (query-params date=day) class="btn btn-primary btn-sm"}}today{{/link-to}}
+    {{#link-to (query-params date=weekly) class="btn btn-primary btn-sm"}}last 7 days{{/link-to}}
+    {{#link-to (query-params date=month) class="btn btn-primary btn-sm"}}last 30 days{{/link-to}}
+    <hr>
+
     <div class="card-columns">
   {{rec-row row=model saveSub=saveSub discardSaveCategory='discardSaveCategory' deleteCategory='deleteCategory' deleteExpense='deleteExpense'
             expenseEdit='expenseEdit' saveCategory='saveCategory' isClickedAddMoney='isClickedAddMoney'

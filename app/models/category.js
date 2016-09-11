@@ -11,6 +11,7 @@ export default DS.Model.extend({
 
   // create sum of all money
   selfExpensesAmounts: Ember.computed.mapBy('expenses', 'money'),
+  dates: Ember.computed.mapBy('expenses', 'createdAt'),
   selfExpensesAmountsSum: Ember.computed.sum('parseFloatMoney'),
   subCategoriesAmounts: Ember.computed.mapBy('children', 'selfExpensesAmountsSum'),
   subCategoriesAmountsSum: Ember.computed.sum('subCategoriesAmounts'),
