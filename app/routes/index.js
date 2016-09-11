@@ -19,8 +19,12 @@ export default Ember.Route.extend({
           return response.filter((item) => {
             item.get('expenses').then(f => {
               return f.filter(item => {
-                let start = moment(params.date);
-                let end = moment(moment().format('YYYY-MM-DD'));
+                if(params.date.split('&').length > 1) {
+                  var startAt = params.date.split('&')[0];
+                  var endAt = params.date.split('&')[1];
+                }
+                let start = startAt ? startAt : moment(params.date);
+                let end =  endAt ? endAt : moment(moment().format('YYYY-MM-DD'));
                 let range = moment.range(start, end);
 
                 //console.log('start:', start);
@@ -66,6 +70,7 @@ export default Ember.Route.extend({
     controller.set('day', today.format('YYYY-MM-DD'));
     controller.set('weekly', today.subtract(7, "days").format('YYYY-MM-DD'));
     controller.set('month', today.subtract(30, "days").format('YYYY-MM-DD'));
+
   },
 
   actions: {
@@ -172,7 +177,12 @@ export default Ember.Route.extend({
       expense.rollbackAttributes();
     },
 
+    // filters
+
+
   },
+
+
 
   _recurssiveDeleteCategories(categories) {
     return categories.map((child) => {

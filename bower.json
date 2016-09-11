@@ -6,6 +6,7 @@
     "ember-qunit-notifications": "0.1.0",
     "firebase": "^3.0.0",
     "font-awesome": "~4.5.0",
-    "moment-range": "^2.2.0"
+    "moment-range": "^2.2.0",
+    "pikaday": "^1.4.0"
   }
 }

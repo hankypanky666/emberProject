@@ -12,6 +12,14 @@
     {{#link-to (query-params date=day) class="btn btn-primary btn-sm"}}today{{/link-to}}
     {{#link-to (query-params date=weekly) class="btn btn-primary btn-sm"}}last 7 days{{/link-to}}
     {{#link-to (query-params date=month) class="btn btn-primary btn-sm"}}last 30 days{{/link-to}}
+    <label>
+        Start date:
+      {{pikaday-input onSelection=(action 'selectStartDay') format="YYYY-MM-DD"}}
+    </label>
+    <label>
+        End date:
+      {{pikaday-input minDate=minDate onSelection=(action 'selectEndDay') format="YYYY-MM-DD" disabled=isSetedstartDay}}
+    </label>
     <hr>
 
     <div class="card-columns">
