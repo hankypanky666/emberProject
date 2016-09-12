@@ -56,7 +56,8 @@ export default Ember.Route.extend({
     const saveCategory = model.save;
     const today = moment();
 
-    //const saveSubCategory = model.saveSub;
+    //set dates from url
+
 
     this._super(controller, category);
 

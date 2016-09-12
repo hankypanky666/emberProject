@@ -16,8 +16,8 @@
           {{#link-to (query-params date=weekly) class="btn btn-secondary"}}last 7 days{{/link-to}}
           {{#link-to (query-params date=month) class="btn btn-secondary"}}last 30 days{{/link-to}}
         </div>
-      {{pikaday-input onSelection=(action 'selectStartDay') format="YYYY-MM-DD" placeholder="start date"}}
-      {{pikaday-input minDate=minDate onSelection=(action 'selectEndDay') format="YYYY-MM-DD"
+      {{pikaday-input value=startDay onSelection=(action 'selectStartDay') format="YYYY-MM-DD" placeholder="start date"}}
+      {{pikaday-input value=endDay minDate=minDate onSelection=(action 'selectEndDay') format="YYYY-MM-DD"
                       disabled=isSetedstartDay placeholder="end date"}}
         <button {{action 'showChart' model}} class="btn btn-secondary">
             {{#if model.isShowChartCliked}}
@@ -30,7 +30,6 @@
     </div>
 </div>
 <hr>
-
 <!-- start Charts -->
 
 {{#if model.isShowChartCliked}}
