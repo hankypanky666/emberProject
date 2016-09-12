@@ -18,7 +18,7 @@ export default Ember.Route.extend({
         }).then((response) => {
           return response.filter((item) => {
             item.get('expenses').then(f => {
-              return f.filter(item => {
+              return f.filter((item) => {
                 if(params.date.split('&').length > 1) {
                   var startAt = params.date.split('&')[0];
                   var endAt = params.date.split('&')[1];
@@ -27,10 +27,6 @@ export default Ember.Route.extend({
                 let end =  endAt ? endAt : moment(moment().format('YYYY-MM-DD'));
                 let range = moment.range(start, end);
 
-                //console.log('start:', start);
-                //console.log('end:', end);
-                //console.log('date:', moment(item.get('createdAt')));
-                //console.log(range.contains(moment(item.get('createdAt'))));
                 return range.contains(moment(item.get('createdAt')));
               });
             }).then((res) => {
@@ -87,6 +83,24 @@ export default Ember.Route.extend({
         });
       });
 
+    },
+
+    //simply charts
+    showChart(model) {
+      let series = [{
+        name: 'total',
+        data: []
+      }];
+      model.forEach((item) => {
+        if(!item.get('isNew')){
+          series[0].data.push({
+            name: item.get('name'),
+            y: item.get('amount')
+          });
+        }
+      });
+      model.set('series', series);
+      model.set('isShowChartCliked', !model.get('isShowChartCliked'));
     },
 
     // Categories actions

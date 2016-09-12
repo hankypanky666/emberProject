@@ -19,9 +19,11 @@ export default DS.Model.extend({
     return Ember.get(this, 'selfExpensesAmountsSum') + Ember.get(this, 'subCategoriesAmountsSum');
   }),
 
-  // changeselfExpensesAmounts: Ember.observer('selfExpensesAmounts', function () {
-  //   console.log(Ember.get(this, 'selfExpensesAmounts'));
-  // }),
+  changeselfExpensesAmounts: Ember.observer('amount', function () {
+    //console.log(Ember.get(this, 'name'));
+    //console.log(Ember.get(this, 'amount'));
+    return Ember.get(this, 'amount');
+  }),
 
   parseFloatMoney: Ember.computed('selfExpensesAmounts', function () {
     return Ember.get(this, 'selfExpensesAmounts').map((item) => {

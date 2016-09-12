@@ -10,14 +10,25 @@ export default Ember.Controller.extend({
     selectStartDay(startDay) {
       if(startDay) {
         this.set('isSetedstartDay', false);
+        this.set('minDate', startDay);
+        this.set('date', moment(startDay).format('YYYY-MM-DD'));
       }
-      this.set('minDate', startDay);
-      this.set('date', moment(startDay).format('YYYY-MM-DD'));
     },
 
     selectEndDay(endDay) {
-      this.set('date', moment(this.get('minDate')).format('YYYY-MM-DD') + '&' + moment(endDay).format('YYYY-MM-DD'));
+      if(endDay) {
+        this.set('date', moment(this.get('minDate')).format('YYYY-MM-DD') + '&' + moment(endDay).format('YYYY-MM-DD'));
+      }
     }
+  },
+
+  chartOptions: {
+    chart: {
+      type: 'pie'
+    },
+    title: {
+      text: 'Total amount by category'
+    },
   }
 
 });
