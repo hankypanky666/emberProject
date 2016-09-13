@@ -87,22 +87,22 @@ export default Ember.Route.extend({
     },
 
     //simply charts
-    showChart(model) {
-      let series = [{
-        name: 'total',
-        data: []
-      }];
-      model.forEach((item) => {
-        if(!item.get('isNew')){
-          series[0].data.push({
-            name: item.get('name'),
-            y: item.get('amount')
-          });
-        }
-      });
-      model.set('series', series);
-      model.set('isShowChartCliked', !model.get('isShowChartCliked'));
-    },
+    // showChart(model) {
+    //   let series = [{
+    //     name: 'total',
+    //     data: []
+    //   }];
+    //   model.forEach((item) => {
+    //     if(!item.get('isNew')){
+    //       series[0].data.push({
+    //         name: item.get('name'),
+    //         y: item.get('amount')
+    //       });
+    //     }
+    //   });
+    //   model.set('series', series);
+    //   model.set('isShowChartCliked', !model.get('isShowChartCliked'));
+    // },
 
     // Categories actions
     createMainCategory(category) {

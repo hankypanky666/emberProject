@@ -30,6 +30,11 @@ export default Ember.Controller.extend({
       if(endDay) {
         this.set('date', moment(this.get('minDate')).format('YYYY-MM-DD') + '&' + moment(endDay).format('YYYY-MM-DD'));
       }
+    },
+
+    showChart(model) {
+      this._updateCharData(model);
+      this.set('isShowChartCliked', !this.get('isShowChartCliked'));
     }
   },
 
@@ -40,6 +45,31 @@ export default Ember.Controller.extend({
     title: {
       text: 'Total amount by category'
     },
+  },
+
+  contentDidChange: Ember.observer('content.@each.isLoaded', function() {
+    // add redraw logic here. ex:
+    let model = this.get('content');
+    this._updateCharData(model);
+  }),
+
+  _updateCharData(model) {
+    let series = [{
+      name: 'total',
+      data: []
+    }];
+    //console.log(series);
+    model.forEach((item) => {
+      if(!item.get('isNew')){
+        item.get('expenses').then((res) => {
+          series[0].data.push({
+            name: item.get('name'),
+            y: item.get('amount')
+          });
+        });
+      }
+    });
+    this.set('series', series);
   }
 
 });

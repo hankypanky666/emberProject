@@ -20,7 +20,7 @@
       {{pikaday-input value=endDay minDate=minDate onSelection=(action 'selectEndDay') format="YYYY-MM-DD"
                       disabled=isSetedstartDay placeholder="end date"}}
         <button {{action 'showChart' model}} class="btn btn-secondary">
-            {{#if model.isShowChartCliked}}
+            {{#if isShowChartCliked}}
               Hide Charts
             {{else}}
                 Show Charts
@@ -32,9 +32,10 @@
 <hr>
 <!-- start Charts -->
 
-{{#if model.isShowChartCliked}}
-  {{high-charts chartOptions=chartOptions content=model.series theme=theme}}
+{{#if isShowChartCliked}}
+  {{high-charts chartOptions=chartOptions content=series theme=theme}}
 {{/if}}
+
 <!-- end Charts Charts -->
 
 <div class="card-columns">
